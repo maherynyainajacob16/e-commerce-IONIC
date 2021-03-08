@@ -1,0 +1,47 @@
+<!--
+  Generated template for the CartPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>Mon panier</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content fullscreen>
+    <ion-list>
+    
+        <button ion-item *ngFor= "let article of cartItems; let i = index ">
+          <ion-thumbnail item-left>
+            <img [src]="article.item.pictures[0]" #picture (click)="showImage(picture ,$event)">
+          </ion-thumbnail>
+          <h2>{{article.item.title}}</h2>
+          <p>
+            <ion-badge color="secondary">{{article.qty}}</ion-badge> x {{article.item.price | currency}}
+          </p>
+          <p *ngIf="article.item.availability.feed">Livraison : {{article.item.availability.feed |currency }}</p>
+          <p>Total : {{ ((article.qty*article.item.price)+article.item.availability.feed ) | currency }}</p>
+          <button>
+            <ion-icon name="mail"></ion-icon>&nbsp;
+            Contacter 
+          </button>
+          <button (click) = "removeItem(article , i) "ion-button item-right icon-only clear color="danger">
+            <ion-icon name="remove-circle"></ion-icon>
+          </button>
+        </button>
+    </ion-list>
+</ion-content>
+<ion-footer>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <button ion-button block (click)="closeModal()">Fermer</button>
+      </ion-col>
+      <ion-col>
+        <button ion-button block outline>Panier : {{total | currency}} </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>
